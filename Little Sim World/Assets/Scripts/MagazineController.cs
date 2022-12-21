@@ -6,23 +6,23 @@ public class MagazineController : MonoBehaviour
 {
     //public GameObject revista;
     public GameObject panelMenu;
-    public GameObject panelPlayeras;
-    public GameObject panelPants;
-    public GameObject panelCabello;
+   // public GameObject panelPlayeras;
+    //public GameObject panelPants;
+    //public GameObject panelCabello;
     public GameObject jugador;
 
     // Start is called before the first frame update
     void Start()
     {
         //revista.SetActive(false);
-        panelCabello.SetActive(false);
+        //panelCabello.SetActive(false);
         panelMenu.SetActive(false);
-        panelPants.SetActive(false);
-        panelPlayeras.SetActive(false);
+        /*panelPants.SetActive(false);
+        panelPlayeras.SetActive(false);*/
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Magazine")) {
+        if (collision.tag=="Player") {
             panelMenu.SetActive(true);
         }
     }

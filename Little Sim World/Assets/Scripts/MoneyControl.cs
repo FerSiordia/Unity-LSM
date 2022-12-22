@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MoneyControl : MonoBehaviour
 {
-    //public TextMesh txtMoney;
+    
     public int money;
-    // Start is called before the first frame update
+    public TMP_Text txtMoney;
+    
     void Start()
     {
-        money = 120;
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        txtMoney.SetText(money.ToString());
     }
     public void AddOrDecreaseMoney(int amount)
     {

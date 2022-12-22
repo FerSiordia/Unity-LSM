@@ -6,6 +6,7 @@ public class MagazineController : MonoBehaviour
 {
     //public GameObject revista;
     public GameObject panelMenu;
+    public GameObject bubblechat;
    // public GameObject panelPlayeras;
     //public GameObject panelPants;
     //public GameObject panelCabello;
@@ -24,6 +25,8 @@ public class MagazineController : MonoBehaviour
     {
         if (collision.tag=="Player") {
             panelMenu.SetActive(true);
+            bubblechat.SetActive(false);
+
         }
     }
     // Update is called once per frame

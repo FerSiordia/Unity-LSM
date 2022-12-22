@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Buttons : MonoBehaviour
 {
     public MoneyControl ADMoney;
+    public TMP_Text SMDialogue, NPCDialogue;
     private bool p1,p2,p3,p4,p5,p6,s1,s2,s3,s4,s5,s6,h1,h2,h3,h4,h5,h6=false; //We´ll use these variables to check if we already purchased something
 
 
 
     public GameObject Closet;
+    public GameObject Magazine;
+    public GameObject BubbleChat;
+    public GameObject BubbleChatNPC;
     public GameObject panelOwnedHair;
     public GameObject panelOwnedPants;
     public GameObject panelOwnedShirts;
@@ -37,7 +42,11 @@ public class Buttons : MonoBehaviour
     public GameObject hair4;
     public GameObject hair5;
     public GameObject hair6;
-     
+
+   //Declaring buttons
+   public GameObject btnp1, btnp2, btnp3, btnp4, btnp5, 
+        btnp6, btns1, btns2, btns3, btns4, btns5, btns6, 
+        btnh1, btnh2, btnh3, btnh4, btnh5, btnh6;
 
 
     //Here we will show the purchased items
@@ -60,7 +69,7 @@ public class Buttons : MonoBehaviour
     public GameObject Phair5;
     public GameObject Phair6;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         panelMenu.SetActive(false);
@@ -72,63 +81,116 @@ public class Buttons : MonoBehaviour
         panelOwnedShirts.SetActive(false);
         panelOwnedPants.SetActive(false);
         Closet.SetActive(false);
+        Magazine.SetActive(false);
+        SMDialogue.text = "Welcome to the shop, we have everyting for you to look amazing!...";
+        StartCoroutine(TimeForDialogues());
+        NPCDialogue.text = "Remember you can see what you´ve purchased on your closet";
+        StartCoroutine(DissapearBubbleNPC(10));
+        
+
+
+
 
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
+        
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             CloseMenu();
         }
         if (p1 == true)
         {
-            Ppantalon1.SetActive(true); 
+            Ppantalon1.SetActive(true);
+            btnp1.SetActive(true);
         }
         if (p2 == true)
         {
             Ppantalon2.SetActive(true);
+            btnp2.SetActive(true);
         }
         if (p3 == true)
         {
             Ppantalon3.SetActive(true);
+            btnp3.SetActive(true);
         }
         if (p4 == true)
         {
             Ppantalon4.SetActive(true);
+            btnp4.SetActive(true);
         }
         if (p5 == true)
         {
             Ppantalon5.SetActive(true);
+            btnp5.SetActive(true);
         }
         if (p6 == true)
         {
             Ppantalon6.SetActive(true);
+            btnp6.SetActive(true);
         }
         if (s1 == true)
         {
             Pshirt1.SetActive(true);
+            btns1.SetActive(true);
         }
         if (s2 == true)
         {
             Pshirt2.SetActive(true);
+            btns2.SetActive(true);
         }
         if (s3 == true)
         {
             Pshirt3.SetActive(true);
+            btns3.SetActive(true);
         }
         if (s4 == true)
         {
             Pshirt4.SetActive(true);
+            btns4.SetActive(true);
         }
         if (s5 == true)
         {
             Pshirt5.SetActive(true);
+            btns5.SetActive(true);
         }
         if (s6 == true)
         {
             Pshirt6.SetActive(true);
+            btns6.SetActive(true);
+        }
+        if (h1 == true)
+        {
+            Phair1.SetActive(true);
+            btnh1.SetActive(true);
+        }
+        if (h2== true)
+        {
+            Phair2.SetActive(true);
+            btnh2.SetActive(true);
+        }
+        if (h3 == true)
+        {
+            Phair3.SetActive(true);
+            btnh3.SetActive(true);
+        }
+        if (h4 == true)
+        {
+            Phair4.SetActive(true);
+            btnh4.SetActive(true);
+        }
+        if (h5 == true)
+        {
+            Phair5.SetActive(true);
+            btnh5.SetActive(true);
+        }
+        if (h6 == true)
+        {
+            Phair6.SetActive(true);
+            btnh6.SetActive(true);
         }
     }
 
@@ -205,7 +267,7 @@ public class Buttons : MonoBehaviour
         if (ADMoney.money >= 45 && p1==false)
         {
             ADMoney.AddOrDecreaseMoney(-45);
-            p1 = true;
+         
             pantalon1.SetActive(true);
             pantalon2.SetActive(false);
             pantalon3.SetActive(false);
@@ -217,6 +279,8 @@ public class Buttons : MonoBehaviour
             panelShirts.SetActive(false);
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
+            p1 = true;
+            ThanksForBuying();
         }
         else if(p1==true)
         {
@@ -248,6 +312,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             p2 = true;
+            ThanksForBuying();
         }
         else if (p2 == true)
         {
@@ -280,6 +345,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             p3 = true;
+            ThanksForBuying();
         }
         else if (p3 == true)
         {
@@ -311,6 +377,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             p4 = true;
+            ThanksForBuying();
         }
         else if (p4 == true)
         {
@@ -342,6 +409,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             p5 = true;
+            ThanksForBuying();
         }
         else if (p5 == true)
         {
@@ -373,6 +441,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             p6 = true;
+            ThanksForBuying();
         }
         else if (p6 == true)
         {
@@ -404,6 +473,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             s1 = true;
+            ThanksForBuying();
         }
         else if (s1 == true)
         {
@@ -435,6 +505,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             s2 = true;
+            ThanksForBuying();
         }
         else if (s2 == true)
         {
@@ -464,6 +535,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             s3 = true;
+            ThanksForBuying();
         }
         else if (s3 == true)
         {
@@ -493,6 +565,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             s4 = true;
+            ThanksForBuying();
         }
         else if (s4 == true)
         {
@@ -522,6 +595,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             s5 = true;
+            ThanksForBuying();
         }
         else if (s5 == true)
         {
@@ -552,6 +626,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             s6 = true;
+            ThanksForBuying();
         }
         else if (s6 == true)
         {
@@ -582,6 +657,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             h1 = true;
+            ThanksForBuying();
         }
         else if (h1 == true)
         {
@@ -612,6 +688,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             h2 = true;
+            ThanksForBuying();
         }
         else if (h2 == true)
         {
@@ -642,6 +719,7 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             h3 = true;
+            ThanksForBuying();
         }
         else if (h3 == true)
         {
@@ -672,7 +750,8 @@ public class Buttons : MonoBehaviour
             panelPants.SetActive(false);
             panelOutOfMoney.SetActive(false);
             h4 = true;
-            
+            ThanksForBuying();
+
 
         }
         else if (h4 == true)
@@ -705,6 +784,7 @@ public class Buttons : MonoBehaviour
             panelOutOfMoney.SetActive(false);
             h5 = true;
             Debug.Log(ADMoney.money);
+            ThanksForBuying();
         }
         else if (h5 == true)
         {
@@ -738,6 +818,7 @@ public class Buttons : MonoBehaviour
             panelOutOfMoney.SetActive(false);
             Debug.Log(ADMoney.money);
             h6 = true;
+            ThanksForBuying();
         }
         else if (h6 == true)
         {
@@ -760,9 +841,395 @@ public class Buttons : MonoBehaviour
         panelOutOfMoney.SetActive(false);
         panelAlreadyInCloset.SetActive(false);
     }
-
-    /*public void ShowP1InCloset()
+    IEnumerator TimeForDialogues()
     {
-       
-    }*/
+        yield return new WaitForSeconds(4);
+        SMDialogue.text = "Here´s the catalogue. Check it out";
+        StartCoroutine(DissapearBubble(3));
+        Magazine.SetActive(true);
+
+    }
+    IEnumerator DissapearBubble(int time)
+    {
+        yield return new WaitForSeconds(time);
+        BubbleChat.SetActive(false);
+
+    }
+    IEnumerator DissapearBubbleNPC(int time)
+    {
+        yield return new WaitForSeconds(time);
+        BubbleChatNPC.SetActive(false);
+
+    }
+    public void ThanksForBuying()
+    {
+        BubbleChat.SetActive(true);
+        SMDialogue.text = "Thanks for your purchase!";
+        StartCoroutine(DissapearBubble(2));
+    }
+    public void Lovely()
+    {
+        BubbleChat.SetActive(true);
+        SMDialogue.text = "That looks lovely";
+        StartCoroutine(DissapearBubble(2));
+    }
+    public void Fantastic()
+    {
+        BubbleChat.SetActive(true);
+        SMDialogue.text = "That´s Fantastic";
+        StartCoroutine(DissapearBubble(2));
+    }
+    public void Great()
+    {
+        BubbleChat.SetActive(true);
+        SMDialogue.text = "That looks great!";
+        StartCoroutine(DissapearBubble(2));
+    }
+
+
+    public void WearP1()
+    {
+        pantalon1.SetActive(true);
+        pantalon2.SetActive(false);
+        pantalon3.SetActive(false);
+        pantalon4.SetActive(false);
+        pantalon5.SetActive(false);
+        pantalon6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Lovely();
+    }
+    public void WearP2()
+    {
+        pantalon1.SetActive(false);
+        pantalon2.SetActive(true);
+        pantalon3.SetActive(false);
+        pantalon4.SetActive(false);
+        pantalon5.SetActive(false);
+        pantalon6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Lovely();
+    }
+    public void WearP3()
+    {
+        pantalon1.SetActive(false);
+        pantalon2.SetActive(false);
+        pantalon3.SetActive(true);
+        pantalon4.SetActive(false);
+        pantalon5.SetActive(false);
+        pantalon6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Lovely();
+    }
+    public void WearP4()
+    {
+        pantalon1.SetActive(false);
+        pantalon2.SetActive(false);
+        pantalon3.SetActive(false);
+        pantalon4.SetActive(true);
+        pantalon5.SetActive(false);
+        pantalon6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Lovely();
+    }
+    public void WearP5()
+    {
+        pantalon1.SetActive(false);
+        pantalon2.SetActive(false);
+        pantalon3.SetActive(false);
+        pantalon4.SetActive(false);
+        pantalon5.SetActive(true);
+        pantalon6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Lovely();
+    }
+    public void WearP6()
+    {
+        pantalon1.SetActive(false);
+        pantalon2.SetActive(false);
+        pantalon3.SetActive(false);
+        pantalon4.SetActive(false);
+        pantalon5.SetActive(false);
+        pantalon6.SetActive(true);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Lovely();
+
+    }
+
+    public void WearS1()
+    {
+        shirt1.SetActive(true);
+        shirt2.SetActive(false);
+        shirt3.SetActive(false);
+        shirt4.SetActive(false);
+        shirt5.SetActive(false);
+        shirt6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Fantastic();
+    }
+    public void WearS2()
+    {
+        shirt1.SetActive(false);
+        shirt2.SetActive(true);
+        shirt3.SetActive(false);
+        shirt4.SetActive(false);
+        shirt5.SetActive(false);
+        shirt6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Fantastic();
+    }
+    public void WearS3()
+    {
+        shirt1.SetActive(false);
+        shirt2.SetActive(false);
+        shirt3.SetActive(true);
+        shirt4.SetActive(false);
+        shirt5.SetActive(false);
+        shirt6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Fantastic();
+    }
+    public void WearS4()
+    {
+        shirt1.SetActive(false);
+        shirt2.SetActive(false);
+        shirt3.SetActive(false);
+        shirt4.SetActive(true);
+        shirt5.SetActive(false);
+        shirt6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Fantastic();
+    }
+    public void WearS5()
+    {
+        shirt1.SetActive(false);
+        shirt2.SetActive(false);
+        shirt3.SetActive(false);
+        shirt4.SetActive(false);
+        shirt5.SetActive(true);
+        shirt6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Fantastic();
+    }
+    public void WearS6()
+    {
+        shirt1.SetActive(false);
+        shirt2.SetActive(false);
+        shirt3.SetActive(false);
+        shirt4.SetActive(false);
+        shirt5.SetActive(false);
+        shirt6.SetActive(true);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Fantastic();
+    }
+
+    public void WearH1()
+    {
+        hair1.SetActive(true);
+        hair2.SetActive(false);
+        hair3.SetActive(false);
+        hair4.SetActive(false);
+        hair5.SetActive(false);
+        hair6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Great();
+    }
+    public void WearH2()
+    {
+        hair1.SetActive(false);
+        hair2.SetActive(true);
+        hair3.SetActive(false);
+        hair4.SetActive(false);
+        hair5.SetActive(false);
+        hair6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Great();
+    }
+    public void WearH3()
+    {
+        hair1.SetActive(false);
+        hair2.SetActive(false);
+        hair3.SetActive(true);
+        hair4.SetActive(false);
+        hair5.SetActive(false);
+        hair6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Great();
+    }
+    public void WearH4()
+    {
+        hair1.SetActive(false);
+        hair2.SetActive(false);
+        hair3.SetActive(false);
+        hair4.SetActive(true);
+        hair5.SetActive(false);
+        hair6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Great();
+    }
+    public void WearH5()
+    {
+        hair1.SetActive(false);
+        hair2.SetActive(false);
+        hair3.SetActive(false);
+        hair4.SetActive(false);
+        hair5.SetActive(true);
+        hair6.SetActive(false);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Great();
+    }
+    public void WearH6()
+    {
+        hair1.SetActive(false);
+        hair2.SetActive(false);
+        hair3.SetActive(false);
+        hair4.SetActive(false);
+        hair5.SetActive(false);
+        hair6.SetActive(true);
+        panelMenu.SetActive(false);
+        panelHair.SetActive(false);
+        panelShirts.SetActive(false);
+        panelPants.SetActive(false);
+        panelOutOfMoney.SetActive(false);
+        panelOwnedShirts.SetActive(false);
+        panelOwnedHair.SetActive(false);
+        panelOwnedPants.SetActive(false);
+        Closet.SetActive(false);
+        Great();
+    }
 }
